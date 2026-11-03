@@ -17,7 +17,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Maman Lit La Nuit | Boudoir Littéraire Dark Romance & Vie de Maman",
+  title: "❤️ & Lit | Boudoir Littéraire Dark Romance & Vie de Maman",
   description:
     "Le boudoir littéraire d'une maman de 2 enfants qui dévore énormément : chroniques Dark Romance, Romantasy, Spicymètre et conseils lecture nocturne.",
 };

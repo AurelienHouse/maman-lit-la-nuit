@@ -43,8 +43,10 @@ export function Navbar() {
             <div className="absolute inset-0 rounded-full border border-amber-400/10 scale-125 opacity-0 group-hover:scale-110 group-hover:opacity-100 transition-all duration-500" />
           </div>
           <div>
-            <span className="font-serif text-2xl font-bold tracking-tight text-stone-100 sm:text-3xl">
-              Maman Lit <span className="text-[#e11d48] italic font-light">La Nuit</span>
+            <span className="flex items-center gap-1.5 font-serif text-2xl font-bold tracking-tight text-stone-100 sm:text-3xl">
+              <Heart className="heart-beat h-6 w-6 fill-rose-600 text-rose-500 drop-shadow-[0_0_12px_rgba(244,63,94,0.75)] sm:h-7 sm:w-7" />
+              <span className="italic font-light text-amber-400">&</span>
+              <span>Lit</span>
             </span>
             <p className="text-[10px] uppercase tracking-[0.3em] text-amber-500/80">
               Boudoir Littéraire & Vie de Maman

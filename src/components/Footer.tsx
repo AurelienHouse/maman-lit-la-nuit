@@ -14,8 +14,10 @@ export function Footer() {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#881337] to-[#292524] text-rose-100 shadow-md transition-transform group-hover:-rotate-12">
                 <BookOpen className="h-5 w-5" />
               </div>
-              <span className="font-serif text-3xl font-bold text-stone-100">
-                Maman Lit <span className="text-[#e11d48] italic font-light">La Nuit</span>
+              <span className="flex items-center gap-2 font-serif text-3xl font-bold text-stone-100">
+                <Heart className="heart-beat h-8 w-8 fill-rose-600 text-rose-500 drop-shadow-[0_0_14px_rgba(244,63,94,0.75)]" />
+                <span className="italic font-light text-amber-400">&</span>
+                <span>Lit</span>
               </span>
             </Link>
             <p className="max-w-md text-sm leading-relaxed text-stone-400 font-light">
@@ -102,7 +104,7 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-stone-800/80 pt-8 text-xs text-stone-500 sm:flex-row">
           <p className="flex items-center gap-2">
-            <Feather className="h-4 w-4 text-rose-400" /> © 2026 Maman Lit La Nuit — Boudoir Littéraire. Tous droits réservés.
+            <Feather className="h-4 w-4 text-rose-400" /> © 2026 ❤️ &amp; Lit — Boudoir Littéraire. Tous droits réservés.
           </p>
           <p className="flex items-center gap-1.5">
             Fait avec <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> et beaucoup de <Coffee className="h-3.5 w-3.5 text-amber-500" /> après le coucher des enfants.

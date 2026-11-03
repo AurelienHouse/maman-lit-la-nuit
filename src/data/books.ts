@@ -45,7 +45,7 @@ export interface CuratedList {
 
 export const MAMA_PROFILE = {
   name: "Chloé",
-  blogTitle: "Maman Lit La Nuit",
+  blogTitle: "❤️ & Lit",
   tagline: "Maman de 2 monstres le jour, dévoreuse de Dark Romance la nuit.",
   subtitle:
     "Entre deux biberons, les devoirs du grand et trois machines de linge, je m'évade dans les univers les plus sombres, intenses et passionnés de la littérature actuelle.",
