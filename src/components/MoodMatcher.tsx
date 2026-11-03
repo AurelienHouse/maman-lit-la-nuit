@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Sparkles, Flame, Heart, Skull, BookOpen, RefreshCw } from "lucide-react";
 import { BOOK_REVIEWS, BookReview } from "@/data/books";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MOODS = [
   {
@@ -50,20 +51,30 @@ export function MoodMatcher() {
     BOOK_REVIEWS.find((b) => b.slug === selectedMood.matchSlug) || BOOK_REVIEWS[0];
 
   return (
-    <div className="rounded-3xl border border-rose-900/40 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-rose-950/30 p-6 sm:p-10 shadow-2xl">
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-center">
-        <div className="lg:col-span-7 space-y-5">
-          <div className="inline-flex items-center gap-2 rounded-full bg-rose-500/10 border border-rose-500/30 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-rose-300">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      className="rounded-[2.5rem] border border-rose-900/40 bg-gradient-to-br from-[#1c1917] via-[#0c0a09] to-[#292524] p-8 sm:p-12 shadow-2xl relative overflow-hidden"
+    >
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-rose-900/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-900/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-center relative z-10">
+        <div className="lg:col-span-7 space-y-6">
+          <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300">
             <Sparkles className="h-3.5 w-3.5" /> « Le bon livre pour le bon moment »
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white">
-            Dis-moi dans quel état d&apos;esprit tu es ce soir, je te conseille ta prochaine lecture :
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white leading-tight">
+            Dis-moi dans quel état d'esprit tu es ce soir, <span className="italic text-rose-400 font-light">je te conseille ta prochaine lecture :</span>
           </h2>
-          <p className="text-sm text-zinc-400">
-            Inspiré de la bibliothérapie (version maman fatiguée qui veut s&apos;évader après 21h) : clique sur ton envie du moment !
+          <p className="text-sm text-stone-400 font-light max-w-xl">
+            Inspiré de la bibliothérapie (version maman fatiguée qui veut s'évader après 21h) : clique sur ton envie du moment et laisse la magie opérer !
           </p>
 
-          <div className="space-y-2.5 pt-2">
+          <div className="space-y-3 pt-4">
             {MOODS.map((mood) => {
               const Icon = mood.icon;
               const isSelected = selectedMood.id === mood.id;
@@ -72,59 +83,70 @@ export function MoodMatcher() {
                   key={mood.id}
                   type="button"
                   onClick={() => setSelectedMood(mood)}
-                  className={`w-full flex items-center gap-3.5 rounded-xl px-4 py-3.5 text-left text-sm font-medium transition-all ${
+                  className={`w-full flex items-center gap-4 rounded-2xl px-5 py-4 text-left text-sm font-medium transition-all duration-300 ${
                     isSelected
-                      ? "bg-gradient-to-r from-rose-700 to-red-800 text-white shadow-lg shadow-rose-950/60 ring-1 ring-rose-400"
-                      : "bg-zinc-900/80 text-zinc-300 border border-zinc-800 hover:border-rose-800/60 hover:bg-zinc-900"
+                      ? "bg-gradient-to-r from-rose-800 to-[#881337] text-white shadow-lg shadow-rose-950/60 ring-1 ring-amber-400/50 scale-[1.02]"
+                      : "bg-[#1c1917]/80 text-stone-300 border border-stone-800 hover:border-rose-800/60 hover:bg-[#292524]"
                   }`}
                 >
-                  <Icon className={`h-5 w-5 shrink-0 ${isSelected ? "text-amber-300" : "text-rose-400"}`} />
-                  <span>{mood.label}</span>
+                  <div className={`p-2 rounded-full ${isSelected ? "bg-white/10" : "bg-stone-800/50"}`}>
+                    <Icon className={`h-5 w-5 shrink-0 ${isSelected ? "text-amber-300" : "text-rose-400"}`} />
+                  </div>
+                  <span className="font-light tracking-wide">{mood.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Résultat recommandé */}
-        <div className="lg:col-span-5">
-          <div className="rounded-2xl border border-rose-500/40 bg-zinc-950/90 p-6 shadow-xl space-y-4 relative overflow-hidden">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-widest text-rose-400">
-                L&apos;ordonnance de Chloé :
-              </span>
-              <span className="rounded-full bg-rose-950 px-3 py-0.5 text-xs font-semibold text-rose-200 border border-rose-800">
-                Note : {matchedBook.rating}/5 ★
-              </span>
-            </div>
-
-            <div className={`rounded-xl bg-gradient-to-br ${matchedBook.coverGradient} p-5 border border-white/10`}>
-              <p className="text-xs uppercase tracking-wider text-rose-300">{matchedBook.category}</p>
-              <h3 className="font-serif text-2xl font-bold text-white mt-1">{matchedBook.title}</h3>
-              <p className="text-sm text-zinc-300">de {matchedBook.author}</p>
-              <p className="mt-3 text-xs italic text-rose-200/90 border-l-2 border-rose-500 pl-3">
-                {matchedBook.coverQuote}
-              </p>
-            </div>
-
-            <div className="rounded-xl bg-rose-950/30 border border-rose-900/40 p-3.5 text-xs text-rose-100">
-              <strong className="text-rose-400 block mb-1">Pourquoi ce choix pour toi :</strong>
-              {selectedMood.reason}
-            </div>
-
-            <p className="text-xs text-zinc-400 line-clamp-3">
-              {matchedBook.verdictCourt}
-            </p>
-
-            <Link
-              href={`/chroniques/${matchedBook.slug}`}
-              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-zinc-950 hover:bg-rose-100 transition-colors"
+        {/* Résultat recommandé avec animation */}
+        <div className="lg:col-span-5 h-full">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedMood.id}
+              initial={{ opacity: 0, x: 20, rotateY: 15 }}
+              animate={{ opacity: 1, x: 0, rotateY: 0 }}
+              exit={{ opacity: 0, x: -20, rotateY: -15 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="rounded-[2rem] border border-amber-500/30 bg-[#0c0a09]/90 p-6 shadow-2xl shadow-rose-950/20 space-y-5 relative overflow-hidden h-full flex flex-col"
             >
-              Découvrir ma chronique complète →
-            </Link>
-          </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400">
+                  L'ordonnance de Chloé :
+                </span>
+                <span className="rounded-full bg-rose-950/80 px-3 py-1 text-xs font-bold text-rose-200 border border-rose-800 flex items-center gap-1">
+                  <Flame className="h-3 w-3" /> {matchedBook.rating}/5
+                </span>
+              </div>
+
+              <div className={`rounded-2xl bg-gradient-to-br ${matchedBook.coverGradient} p-6 border border-white/10 book-cover-float book-spine`}>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-rose-300">{matchedBook.category}</p>
+                <h3 className="font-serif text-3xl font-bold text-white mt-1 leading-tight">{matchedBook.title}</h3>
+                <p className="text-sm text-stone-300 italic mt-1">de {matchedBook.author}</p>
+                <p className="mt-4 text-xs italic text-amber-200/90 border-l-2 border-amber-500 pl-3 leading-relaxed">
+                  {matchedBook.coverQuote}
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-rose-950/30 border border-rose-900/40 p-4 text-xs text-rose-100 font-light leading-relaxed flex-1">
+                <strong className="text-rose-400 block mb-1 uppercase tracking-wider text-[10px]">Pourquoi ce choix pour toi :</strong>
+                {selectedMood.reason}
+              </div>
+
+              <p className="text-xs text-stone-400 font-light italic line-clamp-2">
+                "{matchedBook.verdictCourt}"
+              </p>
+
+              <Link
+                href={`/chroniques/${matchedBook.slug}`}
+                className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full bg-amber-400 px-6 py-4 text-sm font-bold text-[#0c0a09] hover:bg-amber-300 transition-colors shadow-lg shadow-amber-900/20"
+              >
+                Découvrir ma chronique complète →
+              </Link>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

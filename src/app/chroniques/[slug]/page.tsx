@@ -11,6 +11,7 @@ import {
   Skull,
   Sparkles,
   Star,
+  Quote,
 } from "lucide-react";
 import { BOOK_REVIEWS } from "@/data/books";
 import { CommentSection } from "@/components/CommentSection";
@@ -34,53 +35,57 @@ export default async function BookDetailPage({
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 space-y-12">
+    <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
       {/* Retour */}
       <div>
         <Link
           href="/chroniques"
-          className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-rose-400 transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-stone-400 hover:text-rose-400 transition-colors group"
         >
-          <ArrowLeft className="h-4 w-4" /> Retour à toutes mes chroniques
+          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" /> Retour au boudoir
         </Link>
       </div>
 
       {/* En-tête de la chronique */}
-      <div className={`rounded-3xl bg-gradient-to-br ${book.coverGradient} border border-rose-900/40 p-8 sm:p-12 shadow-2xl relative overflow-hidden`}>
-        <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-12 items-center">
-          <div className="md:col-span-8 space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-black/50 px-3.5 py-1 text-xs font-semibold text-rose-300 border border-rose-500/30">
+      <div className={`rounded-[2.5rem] bg-gradient-to-br ${book.coverGradient} border border-rose-900/30 p-10 sm:p-14 shadow-2xl relative overflow-hidden`}>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 mix-blend-overlay" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 grid grid-cols-1 gap-12 md:grid-cols-12 items-center">
+          <div className="md:col-span-8 space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-[#0c0a09]/80 backdrop-blur-md px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-rose-300 border border-rose-500/30">
                 {book.category}
               </span>
               {book.series && (
-                <span className="rounded-full bg-white/10 px-3.5 py-1 text-xs text-zinc-200">
+                <span className="rounded-full bg-white/10 px-4 py-1.5 text-xs text-stone-200 backdrop-blur-md">
                   {book.series}
                 </span>
               )}
               {book.isFavorite && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-rose-600 px-3 py-1 text-xs font-bold text-white">
-                  <Heart className="h-3.5 w-3.5 fill-white" /> Coup de cœur de Maman
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-700 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white shadow-lg border border-rose-400/50">
+                  <Heart className="h-3 w-3 fill-white" /> Coup de cœur
                 </span>
               )}
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-5xl font-extrabold text-white">
-              {book.title} : Mon Avis
+            <h1 className="font-serif text-5xl sm:text-6xl font-bold text-white leading-[1.1]">
+              {book.title} <span className="italic font-light text-rose-200 block mt-2 text-3xl sm:text-4xl">Mon Avis</span>
             </h1>
-            <p className="text-lg text-rose-200 font-medium">
-              Un roman de <strong className="text-white">{book.author}</strong> • Éditions {book.publisher} ({book.pages} pages)
+            <p className="text-lg text-rose-100/80 font-light">
+              Un roman de <strong className="text-white font-medium">{book.author}</strong> • Éditions {book.publisher} ({book.pages} pages)
             </p>
 
-            <blockquote className="border-l-4 border-rose-500 pl-4 py-1 italic text-zinc-200 text-base">
+            <blockquote className="border-l-4 border-amber-500 pl-6 py-2 italic text-white/90 text-xl font-serif leading-relaxed relative">
+              <Quote className="absolute -left-3 -top-4 h-8 w-8 text-amber-500/30" />
               {book.coverQuote}
             </blockquote>
 
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-2.5 pt-4">
               {book.tropes.map((trope) => (
                 <span
                   key={trope}
-                  className="rounded-lg bg-black/50 border border-white/15 px-3 py-1 text-xs font-medium text-rose-200"
+                  className="rounded-xl bg-[#0c0a09]/60 backdrop-blur-sm border border-white/10 px-4 py-1.5 text-xs font-medium text-rose-200"
                 >
                   #{trope}
                 </span>
@@ -88,27 +93,27 @@ export default async function BookDetailPage({
             </div>
           </div>
 
-          {/* Encadré de notation */}
-          <div className="md:col-span-4 rounded-2xl bg-zinc-950/90 border border-white/10 p-6 space-y-4 backdrop-blur-md">
-            <div className="text-center border-b border-zinc-800 pb-4">
-              <span className="text-xs uppercase tracking-widest text-zinc-400">
+          {/* Encadré de notation luxueux */}
+          <div className="md:col-span-4 rounded-[2rem] bg-[#0c0a09]/90 border border-white/10 p-8 space-y-6 backdrop-blur-xl shadow-2xl book-cover-float">
+            <div className="text-center border-b border-stone-800 pb-6">
+              <span className="text-[10px] uppercase tracking-[0.3em] text-stone-400">
                 Note Globale de Chloé
               </span>
-              <div className="mt-1 flex items-center justify-center gap-2 text-3xl font-serif font-bold text-amber-400">
-                <Star className="h-7 w-7 fill-amber-400" />
-                {book.rating.toFixed(1)} <span className="text-base text-zinc-500">/ 5</span>
+              <div className="mt-3 flex items-center justify-center gap-3 text-4xl font-serif font-bold text-amber-400">
+                <Star className="h-8 w-8 fill-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
+                {book.rating.toFixed(1)} <span className="text-lg text-stone-500 font-light">/ 5</span>
               </div>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-5 text-sm">
               <div className="flex items-center justify-between">
-                <span className="text-zinc-300 font-medium">Niveau Spicy 🌶️ :</span>
-                <div className="flex items-center gap-1">
+                <span className="text-stone-300 font-bold uppercase tracking-widest text-[10px]">Spicymètre 🌶️ :</span>
+                <div className="flex items-center gap-1.5">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Flame
                       key={i}
-                      className={`h-4 w-4 ${
-                        i < book.spicyLevel ? "text-rose-500 fill-rose-500" : "text-zinc-700"
+                      className={`h-5 w-5 ${
+                        i < book.spicyLevel ? "text-rose-500 fill-rose-500 drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]" : "text-stone-800"
                       }`}
                     />
                   ))}
@@ -116,20 +121,20 @@ export default async function BookDetailPage({
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-zinc-300 font-medium">Niveau Dark 💀 :</span>
-                <div className="flex items-center gap-1">
+                <span className="text-stone-300 font-bold uppercase tracking-widest text-[10px]">Niveau Dark 💀 :</span>
+                <div className="flex items-center gap-1.5">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Skull
                       key={i}
-                      className={`h-4 w-4 ${
-                        i < book.darknessLevel ? "text-purple-400" : "text-zinc-700"
+                      className={`h-5 w-5 ${
+                        i < book.darknessLevel ? "text-purple-400 drop-shadow-[0_0_8px_rgba(192,132,252,0.5)]" : "text-stone-800"
                       }`}
                     />
                   ))}
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-zinc-800 text-zinc-400">
+              <div className="pt-4 border-t border-stone-800 text-stone-400 text-xs text-center uppercase tracking-widest">
                 Publié le {book.publishDate}
               </div>
             </div>
@@ -138,23 +143,25 @@ export default async function BookDetailPage({
       </div>
 
       {/* Avertissements & Contexte Maman */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-rose-900/40 bg-rose-950/20 p-6 space-y-2">
-          <h2 className="flex items-center gap-2 font-serif text-lg font-bold text-rose-300">
-            <Clock className="h-5 w-5 text-rose-400" /> Journal de bord d&apos;une maman débordée
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="rounded-[2rem] border border-amber-900/30 bg-amber-950/10 p-8 space-y-4 backdrop-blur-sm">
+          <h2 className="flex items-center gap-3 font-serif text-2xl font-bold text-amber-400">
+            <Clock className="h-6 w-6" /> Journal de bord d'une maman débordée
           </h2>
-          <p className="text-sm text-zinc-300 leading-relaxed">{book.readingContext}</p>
+          <p className="text-sm text-stone-300 font-light leading-relaxed italic">
+            "{book.readingContext}"
+          </p>
         </div>
 
-        <div className="rounded-2xl border border-purple-900/40 bg-purple-950/20 p-6 space-y-2">
-          <h2 className="flex items-center gap-2 font-serif text-lg font-bold text-purple-300">
-            <ShieldAlert className="h-5 w-5 text-purple-400" /> Trigger Warnings (Avertissements)
+        <div className="rounded-[2rem] border border-purple-900/30 bg-purple-950/10 p-8 space-y-4 backdrop-blur-sm">
+          <h2 className="flex items-center gap-3 font-serif text-2xl font-bold text-purple-300">
+            <ShieldAlert className="h-6 w-6" /> Trigger Warnings
           </h2>
-          <div className="flex flex-wrap gap-1.5 pt-1">
+          <div className="flex flex-wrap gap-2 pt-2">
             {book.triggerWarnings.map((tw) => (
               <span
                 key={tw}
-                className="rounded-md bg-purple-950/80 border border-purple-700/40 px-2.5 py-1 text-xs text-purple-200"
+                className="rounded-lg bg-purple-950/80 border border-purple-700/40 px-3 py-1.5 text-xs text-purple-200 font-medium"
               >
                 ⚠️ {tw}
               </span>
@@ -164,44 +171,50 @@ export default async function BookDetailPage({
       </div>
 
       {/* Résumé & Chronique Complète */}
-      <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-8 sm:p-10 space-y-8">
-        <div className="space-y-3 border-b border-zinc-800 pb-6">
-          <h2 className="font-serif text-2xl font-bold text-white">De quoi ça parle ? (Sans spoiler)</h2>
-          <p className="text-base text-zinc-300 leading-relaxed">{book.summary}</p>
+      <div className="rounded-[2.5rem] border border-stone-800 bg-[#1c1917]/40 backdrop-blur-sm p-10 sm:p-14 space-y-12">
+        <div className="space-y-5 border-b border-stone-800 pb-10">
+          <h2 className="font-serif text-3xl font-bold text-white flex items-center gap-3">
+            <BookOpen className="h-7 w-7 text-rose-400" /> De quoi ça parle ? <span className="italic font-light text-stone-400 text-xl">(Sans spoiler)</span>
+          </h2>
+          <p className="text-lg text-stone-300 font-light leading-relaxed">{book.summary}</p>
         </div>
 
-        <div className="space-y-4">
-          <h2 className="font-serif text-2xl font-bold text-rose-400">
+        <div className="space-y-6">
+          <h2 className="font-serif text-3xl font-bold text-rose-400 italic">
             Mon avis complet & sans filtre
           </h2>
-          {book.fullReview.map((paragraph, index) => (
-            <p key={index} className="text-base text-zinc-200 leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
+          <div className="space-y-6 text-lg text-stone-200 font-light leading-relaxed font-serif">
+            {book.fullReview.map((paragraph, index) => (
+              <p key={index} className={index === 0 ? "text-xl text-white font-normal" : ""}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
 
         {/* Points forts & Pour qui */}
-        <div className="grid grid-cols-1 gap-6 pt-4 md:grid-cols-2">
-          <div className="rounded-2xl bg-zinc-950 p-6 border border-zinc-800 space-y-3">
-            <h3 className="font-serif text-lg font-bold text-white flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-amber-400" /> Ce qui m&apos;a fait vibrer
+        <div className="grid grid-cols-1 gap-8 pt-8 md:grid-cols-2">
+          <div className="rounded-[2rem] bg-[#0c0a09] p-8 border border-stone-800 space-y-5 shadow-xl">
+            <h3 className="font-serif text-2xl font-bold text-white flex items-center gap-3">
+              <Sparkles className="h-6 w-6 text-amber-400" /> Ce qui m'a fait vibrer
             </h3>
-            <ul className="space-y-2 text-sm text-zinc-300">
+            <ul className="space-y-4 text-sm text-stone-300 font-light">
               {book.pointsForts.map((pt) => (
-                <li key={pt} className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
-                  <span>{pt}</span>
+                <li key={pt} className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-rose-500 shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">{pt}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-2xl bg-zinc-950 p-6 border border-zinc-800 space-y-3">
-            <h3 className="font-serif text-lg font-bold text-white flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-rose-400" /> Est-ce que je vous le conseille ?
+          <div className="rounded-[2rem] bg-[#0c0a09] p-8 border border-stone-800 space-y-5 shadow-xl">
+            <h3 className="font-serif text-2xl font-bold text-white flex items-center gap-3">
+              <Heart className="h-6 w-6 text-rose-400" /> Est-ce que je vous le conseille ?
             </h3>
-            <p className="text-sm text-zinc-300 leading-relaxed">{book.pourQui}</p>
+            <p className="text-sm text-stone-300 font-light leading-relaxed italic">
+              "{book.pourQui}"
+            </p>
           </div>
         </div>
       </div>
