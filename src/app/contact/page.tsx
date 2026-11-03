@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, Flame, Heart, Mail, Send, Sparkles, CheckCircle2 } from "lucide-react";
+import { BookOpen, Flame, Mail, Send, Sparkles, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { EditableText } from "@/components/EditableText";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -24,13 +25,24 @@ export default function ContactPage() {
       >
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-rose-900/10 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
         <span className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300 relative z-10">
-          <Mail className="h-3.5 w-3.5" /> Boîte à livres & Papotages
+          <Mail className="h-3.5 w-3.5" />{" "}
+          <EditableText
+            id="contact.kicker"
+            defaultText="Boîte à livres & Papotages"
+          />
         </span>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white relative z-10 leading-tight">
-          Conseille-moi une pépite ou demande ton <span className="italic text-rose-400 font-light">ordonnance lecture</span> !
+          <EditableText
+            id="contact.title"
+            defaultText="Conseille-moi une pépite ou demande ton ordonnance lecture !"
+          />
         </h1>
         <p className="max-w-2xl mx-auto text-sm sm:text-base text-stone-300 font-light leading-relaxed relative z-10">
-          Ma Pile à Lire (PAL) déborde déjà sur trois étagères, mais il y a toujours de la place pour un nouveau coup de cœur Dark Romance ou Romantasy. Tu peux aussi m'écrire pour un conseil personnalisé !
+          <EditableText
+            id="contact.subtitle"
+            defaultText="Ma Pile à Lire (PAL) déborde déjà sur trois étagères, mais il y a toujours de la place pour un nouveau coup de cœur Dark Romance ou Romantasy. Tu peux aussi m'écrire pour un conseil personnalisé !"
+            multiline
+          />
         </p>
       </motion.div>
 
@@ -50,19 +62,21 @@ export default function ContactPage() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="py-16 text-center space-y-6"
             >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 200, damping: 10, delay: 0.2 }}
-                className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 shadow-[0_0_30px_rgba(251,191,36,0.2)]"
-              >
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40">
                 <CheckCircle2 className="h-10 w-10" />
-              </motion.div>
+              </div>
               <h2 className="font-serif text-3xl font-bold text-white">
-                Message bien reçu dans mon <span className="italic text-rose-400 font-light">boudoir littéraire</span> !
+                <EditableText
+                  id="contact.success_title"
+                  defaultText="Message bien reçu dans mon boudoir littéraire !"
+                />
               </h2>
               <p className="text-sm text-stone-300 font-light max-w-md mx-auto leading-relaxed">
-                Je te réponds dès que les enfants sont couchés et que j'ai ma tasse de thé en main. Merci d'avoir pris le temps de m'écrire !
+                <EditableText
+                  id="contact.success_desc"
+                  defaultText="Je te réponds dès que les enfants sont couchés et que j'ai ma tasse de thé en main. Merci d'avoir pris le temps de m'écrire !"
+                  multiline
+                />
               </p>
               <button
                 type="button"
@@ -84,18 +98,36 @@ export default function ContactPage() {
               {/* Choix du sujet */}
               <div className="space-y-3">
                 <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">
-                  Pourquoi m'écris-tu aujourd'hui ?
+                  <EditableText
+                    id="contact.reason_label"
+                    defaultText="Pourquoi m'écris-tu aujourd'hui ?"
+                  />
                 </label>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   {[
-                    { id: "recommandation", icon: Flame, label: "Te conseiller un livre à lire absolument", color: "text-rose-500" },
-                    { id: "conseil", icon: Sparkles, label: "Te demander un conseil de lecture sur-mesure", color: "text-amber-400" },
-                    { id: "partenariat", icon: BookOpen, label: "Service Presse / Autrice / Bookclub", color: "text-purple-400" }
+                    {
+                      id: "recommandation",
+                      icon: Flame,
+                      label: "Te conseiller un livre à lire absolument",
+                      color: "text-rose-500",
+                    },
+                    {
+                      id: "conseil",
+                      icon: Sparkles,
+                      label: "Te demander un conseil de lecture sur-mesure",
+                      color: "text-amber-400",
+                    },
+                    {
+                      id: "partenariat",
+                      icon: BookOpen,
+                      label: "Service Presse / Autrice / Bookclub",
+                      color: "text-purple-400",
+                    },
                   ].map((type) => (
                     <button
                       key={type.id}
                       type="button"
-                      onClick={() => setFormType(type.id as any)}
+                      onClick={() => setFormType(type.id as "recommandation" | "conseil" | "partenariat")}
                       className={`rounded-[1.5rem] p-6 text-left text-xs font-bold uppercase tracking-widest border transition-all duration-300 ${
                         formType === type.id
                           ? "bg-rose-950/40 border-rose-500/50 text-white shadow-lg shadow-rose-950/30 scale-[1.02]"
@@ -103,7 +135,10 @@ export default function ContactPage() {
                       }`}
                     >
                       <type.icon className={`h-5 w-5 ${type.color} mb-3`} />
-                      {type.label}
+                      <EditableText
+                        id={`contact.tab.${type.id}`}
+                        defaultText={type.label}
+                      />
                     </button>
                   ))}
                 </div>
@@ -191,8 +226,11 @@ export default function ContactPage() {
                 type="submit"
                 className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-rose-700 to-rose-900 px-10 py-5 text-sm font-bold uppercase tracking-widest text-rose-50 shadow-2xl shadow-rose-950/60 hover:shadow-rose-600/30 transition-all hover:-translate-y-1 border border-rose-500/50"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <Send className="h-4 w-4" /> Envoyer mon message à Chloé
+                <Send className="h-4 w-4" />{" "}
+                <EditableText
+                  id="contact.submit_btn"
+                  defaultText="Envoyer mon message à Chloé"
+                />
               </button>
             </motion.form>
           )}

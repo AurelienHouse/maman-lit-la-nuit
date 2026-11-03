@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { BookOpen, Coffee, Flame, Heart, Moon, Feather, Sparkles } from "lucide-react";
+import { BookOpen, Coffee, Flame, Heart, Moon, Feather } from "lucide-react";
+import { EditableText } from "@/components/EditableText";
 
 export function Footer() {
   return (
@@ -16,28 +19,45 @@ export function Footer() {
               </div>
               <span className="flex items-center gap-2 font-serif text-3xl font-bold text-stone-100">
                 <Heart className="heart-beat h-8 w-8 fill-rose-600 text-rose-500 drop-shadow-[0_0_14px_rgba(244,63,94,0.75)]" />
-                <span className="italic font-light text-amber-400">&</span>
-                <span>Lit</span>
+                <EditableText
+                  id="brand.amp"
+                  defaultText="&"
+                  className="italic font-light text-amber-400"
+                />
+                <EditableText id="brand.name" defaultText="Lit" />
               </span>
             </Link>
             <p className="max-w-md text-sm leading-relaxed text-stone-400 font-light">
-              Le boudoir littéraire d&apos;une maman de deux enfants qui dévore plus de 100 romans par an.
-              Spécialiste autoproclamée de la <strong className="text-rose-300 font-serif italic">Dark Romance</strong>, de la
-              Romantasy et des héros moralement gris qui nous font oublier de dormir.
+              <EditableText
+                id="footer.description"
+                defaultText="Le boudoir littéraire d'une maman de deux enfants qui dévore plus de 100 romans par an. Spécialiste autoproclamée de la Dark Romance, de la Romantasy et des héros moralement gris qui nous font oublier de dormir."
+                multiline
+              />
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-stone-500">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[#1c1917] px-4 py-1.5 text-stone-300 border border-stone-800">
-                <Moon className="h-3.5 w-3.5 text-amber-400" /> Club des lectrices nocturnes
+                <Moon className="h-3.5 w-3.5 text-amber-400" />{" "}
+                <EditableText
+                  id="footer.badge1"
+                  defaultText="Club des lectrices nocturnes"
+                />
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[#1c1917] px-4 py-1.5 text-stone-300 border border-stone-800">
-                <Flame className="h-3.5 w-3.5 text-rose-500" /> Avis 100% honnêtes & sans filtre
+                <Flame className="h-3.5 w-3.5 text-rose-500" />{" "}
+                <EditableText
+                  id="footer.badge2"
+                  defaultText="Avis 100% honnêtes & sans filtre"
+                />
               </span>
             </div>
           </div>
 
           <div>
             <h3 className="font-serif text-sm font-semibold uppercase tracking-[0.2em] text-amber-500/80 border-b border-stone-800 pb-3">
-              Explorer le Boudoir
+              <EditableText
+                id="footer.col1_title"
+                defaultText="Explorer le Boudoir"
+              />
             </h3>
             <ul className="mt-5 space-y-3 text-sm font-light">
               <li>
@@ -70,7 +90,10 @@ export function Footer() {
 
           <div>
             <h3 className="font-serif text-sm font-semibold uppercase tracking-[0.2em] text-amber-500/80 border-b border-stone-800 pb-3">
-              Genres Favoris
+              <EditableText
+                id="footer.col2_title"
+                defaultText="Genres Favoris"
+              />
             </h3>
             <ul className="mt-5 space-y-3 text-sm font-light">
               <li>
@@ -104,7 +127,11 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-stone-800/80 pt-8 text-xs text-stone-500 sm:flex-row">
           <p className="flex items-center gap-2">
-            <Feather className="h-4 w-4 text-rose-400" /> © 2026 ❤️ &amp; Lit — Boudoir Littéraire. Tous droits réservés.
+            <Feather className="h-4 w-4 text-rose-400" />{" "}
+            <EditableText
+              id="footer.copyright"
+              defaultText="© 2026 ❤️ & Lit — Boudoir Littéraire. Tous droits réservés."
+            />
           </p>
           <p className="flex items-center gap-1.5">
             Fait avec <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> et beaucoup de <Coffee className="h-3.5 w-3.5 text-amber-500" /> après le coucher des enfants.

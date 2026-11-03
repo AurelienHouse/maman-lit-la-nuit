@@ -7,24 +7,21 @@ import {
   Coffee,
   Flame,
   Heart,
-  Moon,
-  Sparkles,
-  Clock,
-  CheckCircle2,
   ArrowRight,
 } from "lucide-react";
-import { MAMA_PROFILE } from "@/data/books";
 import { motion } from "framer-motion";
+import { EditableText } from "@/components/EditableText";
 
 const fadeInUp: any = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.6, ease: "easeOut" }
+  transition: { duration: 0.6, ease: "easeOut" },
 };
 
 const TIMELINE_JOUR_NUIT = [
   {
+    id: "t1",
     time: "07h15",
     mode: "Mode Maman",
     title: "Réveil en fanfare & opération tartines",
@@ -32,9 +29,10 @@ const TIMELINE_JOUR_NUIT = [
     icon: Coffee,
     color: "text-amber-500",
     bg: "bg-amber-500/10",
-    border: "border-amber-500/20"
+    border: "border-amber-500/20",
   },
   {
+    id: "t2",
     time: "13h30",
     mode: "Mode Lectrice Furtive",
     title: "Pause déj' & 2 chapitres volés",
@@ -42,9 +40,10 @@ const TIMELINE_JOUR_NUIT = [
     icon: BookOpen,
     color: "text-rose-400",
     bg: "bg-rose-500/10",
-    border: "border-rose-500/20"
+    border: "border-rose-500/20",
   },
   {
+    id: "t3",
     time: "18h00",
     mode: "Mode Maman",
     title: "Le tunnel Bain - Devoirs - Repas",
@@ -52,9 +51,10 @@ const TIMELINE_JOUR_NUIT = [
     icon: Baby,
     color: "text-purple-400",
     bg: "bg-purple-500/10",
-    border: "border-purple-500/20"
+    border: "border-purple-500/20",
   },
   {
+    id: "t4",
     time: "21h15",
     mode: "Mode Dark Romance 🌶️",
     title: "Silence dans la maison : mon deuxième monde",
@@ -62,7 +62,7 @@ const TIMELINE_JOUR_NUIT = [
     icon: Flame,
     color: "text-rose-500",
     bg: "bg-rose-500/10",
-    border: "border-rose-500/20"
+    border: "border-rose-500/20",
   },
 ];
 
@@ -79,43 +79,87 @@ export default function AProposPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-center relative z-10">
           <div className="lg:col-span-8 space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300">
-              <Heart className="h-3.5 w-3.5" /> Qui se cache derrière ce boudoir ?
+              <Heart className="h-3.5 w-3.5" />{" "}
+              <EditableText
+                id="apropos.kicker"
+                defaultText="Qui se cache derrière ce boudoir ?"
+              />
             </span>
             <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white leading-[1.1]">
-              Moi c'est Chloé : maman de 2 enfants à plein temps, et grande amoureuse de <span className="italic text-rose-400 font-light">Dark Romance</span>.
+              <EditableText
+                id="apropos.hero_title"
+                defaultText="Moi c'est Chloé : maman de 2 enfants à plein temps, et grande amoureuse de Dark Romance."
+                multiline
+              />
             </h1>
             <p className="text-lg text-stone-300 font-light leading-relaxed">
-              Pendant longtemps, après la naissance de mon deuxième enfant, j'ai cru que je n'aurais plus jamais le temps de lire. Et puis j'ai découvert la littérature qui fait battre le cœur à 100 à l'heure : la <strong className="text-rose-300 font-medium">Dark Romance</strong> et la <strong className="text-rose-300 font-medium">Romantasy</strong>.
+              <EditableText
+                id="apropos.hero_p1"
+                defaultText="Pendant longtemps, après la naissance de mon deuxième enfant, j'ai cru que je n'aurais plus jamais le temps de lire. Et puis j'ai découvert la littérature qui fait battre le cœur à 100 à l'heure : la Dark Romance et la Romantasy."
+                multiline
+              />
             </p>
             <p className="text-lg text-stone-300 font-light leading-relaxed">
-              Pourquoi j'ai créé ce site ? Parce que comme sur mes blogs littéraires préférés (coucou <em className="text-amber-300">MademoiselleLit</em> !), j'avais envie d'un espace chaleureux, loin des algorithmes rapides des réseaux sociaux, pour partager de vraies chroniques détaillées et conseiller d'autres lectrices et mamans sans aucun tabou.
+              <EditableText
+                id="apropos.hero_p2"
+                defaultText="Pourquoi j'ai créé ce site ? Parce que comme sur mes blogs littéraires préférés (coucou MademoiselleLit !), j'avais envie d'un espace chaleureux, loin des algorithmes rapides des réseaux sociaux, pour partager de vraies chroniques détaillées et conseiller d'autres lectrices et mamans sans aucun tabou."
+                multiline
+              />
             </p>
           </div>
 
           <div className="lg:col-span-4 rounded-[2rem] border border-amber-500/20 bg-[#0c0a09]/90 p-8 space-y-6 shadow-xl backdrop-blur-md">
             <h2 className="font-serif text-2xl font-bold text-white border-b border-stone-800 pb-4">
-              Ma fiche d'identité
+              <EditableText
+                id="apropos.card_title"
+                defaultText="Ma fiche d'identité"
+              />
             </h2>
             <ul className="space-y-4 text-sm text-stone-300 font-light">
               <li className="flex items-center justify-between border-b border-stone-800/50 pb-3">
                 <span className="text-stone-500 uppercase tracking-widest text-[10px] font-bold">Tribu :</span>
-                <strong className="text-white font-medium">Léo (7 ans) & Mila (3 ans)</strong>
+                <strong className="text-white font-medium">
+                  <EditableText
+                    id="apropos.card_tribu"
+                    defaultText="Léo (7 ans) & Mila (3 ans)"
+                  />
+                </strong>
               </li>
               <li className="flex items-center justify-between border-b border-stone-800/50 pb-3">
                 <span className="text-stone-500 uppercase tracking-widest text-[10px] font-bold">Rythme :</span>
-                <strong className="text-rose-400 font-medium">~2 à 3 livres / semaine</strong>
+                <strong className="text-rose-400 font-medium">
+                  <EditableText
+                    id="apropos.card_rythme"
+                    defaultText="~2 à 3 livres / semaine"
+                  />
+                </strong>
               </li>
               <li className="flex items-center justify-between border-b border-stone-800/50 pb-3">
                 <span className="text-stone-500 uppercase tracking-widest text-[10px] font-bold">Format :</span>
-                <strong className="text-white font-medium">Broché la nuit, Kindle le jour</strong>
+                <strong className="text-white font-medium">
+                  <EditableText
+                    id="apropos.card_format"
+                    defaultText="Broché la nuit, Kindle le jour"
+                  />
+                </strong>
               </li>
               <li className="flex items-center justify-between border-b border-stone-800/50 pb-3">
                 <span className="text-stone-500 uppercase tracking-widest text-[10px] font-bold">Trope favori :</span>
-                <strong className="text-rose-300 font-medium">Enemies to Lovers</strong>
+                <strong className="text-rose-300 font-medium">
+                  <EditableText
+                    id="apropos.card_trope"
+                    defaultText="Enemies to Lovers"
+                  />
+                </strong>
               </li>
               <li className="flex items-center justify-between">
                 <span className="text-stone-500 uppercase tracking-widest text-[10px] font-bold">Book Boyfriend :</span>
-                <strong className="text-amber-300 font-medium">Zade & Xaden</strong>
+                <strong className="text-amber-300 font-medium">
+                  <EditableText
+                    id="apropos.card_boyfriend"
+                    defaultText="Zade & Xaden"
+                  />
+                </strong>
               </li>
             </ul>
           </div>
@@ -126,20 +170,30 @@ export default function AProposPage() {
       <motion.section {...fadeInUp} className="space-y-12">
         <div className="space-y-4 text-center max-w-3xl mx-auto">
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400">
-            Comment je fais pour lire autant ?
+            <EditableText
+              id="apropos.timeline_kicker"
+              defaultText="Comment je fais pour lire autant ?"
+            />
           </span>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white">
-            24h dans la peau d'une maman qui lit <span className="italic text-rose-400 font-light">énormément</span>
+            <EditableText
+              id="apropos.timeline_title"
+              defaultText="24h dans la peau d'une maman qui lit énormément"
+            />
           </h2>
           <p className="text-sm text-stone-400 font-light">
-            La question qu'on me pose le plus souvent : « Mais Chloé, avec deux enfants en bas âge, où trouves-tu le temps de lire 114 livres par an ?! »
+            <EditableText
+              id="apropos.timeline_sub"
+              defaultText="La question qu'on me pose le plus souvent : « Mais Chloé, avec deux enfants en bas âge, où trouves-tu le temps de lire 114 livres par an ?! »"
+              multiline
+            />
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {TIMELINE_JOUR_NUIT.map((item, idx) => (
             <motion.div
-              key={item.time}
+              key={item.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -149,7 +203,10 @@ export default function AProposPage() {
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
                   <span className="font-serif text-3xl font-bold text-rose-400">
-                    {item.time}
+                    <EditableText
+                      id={`apropos.timeline.${item.id}.time`}
+                      defaultText={item.time}
+                    />
                   </span>
                   <div className={`p-3 rounded-full ${item.bg} ${item.color} border ${item.border} group-hover:scale-110 transition-transform duration-500`}>
                     <item.icon className="h-5 w-5" />
@@ -157,14 +214,24 @@ export default function AProposPage() {
                 </div>
                 <div>
                   <span className="inline-block rounded-full bg-[#0c0a09] border border-stone-800 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-3">
-                    {item.mode}
+                    <EditableText
+                      id={`apropos.timeline.${item.id}.mode`}
+                      defaultText={item.mode}
+                    />
                   </span>
                   <h3 className="font-serif text-xl font-bold text-white leading-tight">
-                    {item.title}
+                    <EditableText
+                      id={`apropos.timeline.${item.id}.title`}
+                      defaultText={item.title}
+                    />
                   </h3>
                 </div>
                 <p className="text-sm text-stone-400 font-light leading-relaxed">
-                  {item.desc}
+                  <EditableText
+                    id={`apropos.timeline.${item.id}.desc`}
+                    defaultText={item.desc}
+                    multiline
+                  />
                 </p>
               </div>
             </motion.div>
@@ -180,31 +247,55 @@ export default function AProposPage() {
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-600/50 to-transparent" />
 
         <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white text-center max-w-3xl mx-auto leading-tight">
-          Pourquoi la Dark Romance fait autant de bien à notre <span className="italic text-rose-400 font-light">charge mentale</span> ?
+          <EditableText
+            id="apropos.why_title"
+            defaultText="Pourquoi la Dark Romance fait autant de bien à notre charge mentale ?"
+          />
         </h2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 text-sm text-stone-300 font-light leading-relaxed pt-6">
-          <div className="space-y-4 bg-[#0c0a09] p-8 rounded-[2rem] border border-stone-800 shadow-inner">
-            <div className="h-12 w-12 rounded-full bg-rose-950/50 border border-rose-800/50 flex items-center justify-center text-rose-400 font-serif text-2xl font-bold italic mb-4">1</div>
-            <h3 className="font-bold text-white text-lg font-serif">Une déconnexion immédiate</h3>
-            <p>
-              Quand le quotidien est rempli de listes de courses et de rendez-vous médicaux, un roman calme ne suffit pas toujours à faire taire le cerveau. L'intensité de la Dark Romance coupe instantanément le flux de pensées !
-            </p>
-          </div>
-          <div className="space-y-4 bg-[#0c0a09] p-8 rounded-[2rem] border border-stone-800 shadow-inner">
-            <div className="h-12 w-12 rounded-full bg-amber-950/50 border border-amber-800/50 flex items-center justify-center text-amber-400 font-serif text-2xl font-bold italic mb-4">2</div>
-            <h3 className="font-bold text-white text-lg font-serif">Retrouver sa part de femme</h3>
-            <p>
-              On n'est pas que des mamans ! Lire des histoires passionnées, sulfureuses et adultes permet de se reconnecter à ses émotions, au frisson et à son jardin secret.
-            </p>
-          </div>
-          <div className="space-y-4 bg-[#0c0a09] p-8 rounded-[2rem] border border-stone-800 shadow-inner">
-            <div className="h-12 w-12 rounded-full bg-purple-950/50 border border-purple-800/50 flex items-center justify-center text-purple-400 font-serif text-2xl font-bold italic mb-4">3</div>
-            <h3 className="font-bold text-white text-lg font-serif">Une communauté incroyable</h3>
-            <p>
-              Échanger nos théories, nos coups de cœur et nos fous rires entre lectrices crée des liens précieux. Ici, on papote comme autour d'un café entre copines !
-            </p>
-          </div>
+          {[
+            {
+              id: "w1",
+              num: "1",
+              title: "Une déconnexion immédiate",
+              desc: "Quand le quotidien est rempli de listes de courses et de rendez-vous médicaux, un roman calme ne suffit pas toujours à faire taire le cerveau. L'intensité de la Dark Romance coupe instantanément le flux de pensées !",
+            },
+            {
+              id: "w2",
+              num: "2",
+              title: "Retrouver sa part de femme",
+              desc: "On n'est pas que des mamans ! Lire des histoires passionnées, sulfureuses et adultes permet de se reconnecter à ses émotions, au frisson et à son jardin secret.",
+            },
+            {
+              id: "w3",
+              num: "3",
+              title: "Une communauté incroyable",
+              desc: "Échanger nos théories, nos coups de cœur et nos fous rires entre lectrices crée des liens précieux. Ici, on papote comme autour d'un café entre copines !",
+            },
+          ].map((item) => (
+            <div
+              key={item.id}
+              className="space-y-4 bg-[#0c0a09] p-8 rounded-[2rem] border border-stone-800 shadow-inner"
+            >
+              <div className="h-12 w-12 rounded-full bg-rose-950/50 border border-rose-800/50 flex items-center justify-center text-rose-400 font-serif text-2xl font-bold italic mb-4">
+                {item.num}
+              </div>
+              <h3 className="font-bold text-white text-lg font-serif">
+                <EditableText
+                  id={`apropos.why.${item.id}.title`}
+                  defaultText={item.title}
+                />
+              </h3>
+              <p>
+                <EditableText
+                  id={`apropos.why.${item.id}.desc`}
+                  defaultText={item.desc}
+                  multiline
+                />
+              </p>
+            </div>
+          ))}
         </div>
 
         <div className="pt-8 text-center">
@@ -212,8 +303,8 @@ export default function AProposPage() {
             href="/contact"
             className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-rose-700 to-rose-900 px-10 py-5 text-sm font-bold uppercase tracking-widest text-rose-50 shadow-2xl shadow-rose-950/60 hover:shadow-rose-600/30 transition-all hover:-translate-y-1 border border-rose-500/50"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            Viens papoter ou me conseiller un livre <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            Viens papoter ou me conseiller un livre{" "}
+            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </motion.section>

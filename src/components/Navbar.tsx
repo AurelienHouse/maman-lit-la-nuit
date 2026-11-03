@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { BookOpen, Flame, Heart, Menu, Moon, Sparkles, X, Coffee, Feather } from "lucide-react";
+import { BookOpen, Flame, Heart, Menu, Moon, X, Coffee } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { EditableText } from "@/components/EditableText";
 
 const NAV_LINKS = [
-  { href: "/", label: "Le Boudoir" },
-  { href: "/chroniques", label: "Chroniques & Avis" },
-  { href: "/tops", label: "Tops & Guides" },
-  { href: "/a-propos", label: "La Maman Lectrice" },
-  { href: "/contact", label: "Me Conseiller un Livre" },
+  { href: "/", id: "nav.home", label: "Le Boudoir" },
+  { href: "/chroniques", id: "nav.chroniques", label: "Chroniques & Avis" },
+  { href: "/tops", id: "nav.tops", label: "Tops & Guides" },
+  { href: "/a-propos", id: "nav.apropos", label: "La Maman Lectrice" },
+  { href: "/contact", id: "nav.contact", label: "Me Conseiller un Livre" },
 ];
 
 export function Navbar() {
@@ -26,12 +27,32 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-40 transition-all duration-500 border-b ${scrolled ? "bg-[#0c0a09]/90 backdrop-blur-xl border-rose-950/60 shadow-2xl shadow-rose-950/20" : "bg-transparent border-transparent"}`}>
+    <header
+      className={`sticky top-0 z-40 transition-all duration-500 border-b ${
+        scrolled
+          ? "bg-[#0c0a09]/90 backdrop-blur-xl border-rose-950/60 shadow-2xl shadow-rose-950/20"
+          : "bg-transparent border-transparent"
+      }`}
+    >
       {/* Top banner clin d'œil maman luxueux */}
       <div className="bg-gradient-to-r from-rose-950/90 via-[#1c1917] to-rose-950/90 px-4 py-1.5 text-center text-[11px] uppercase tracking-widest text-rose-200/80 border-b border-rose-900/30">
         <span className="inline-flex items-center gap-1.5 font-medium">
           <Moon className="h-3 w-3 text-amber-400" />
-          Lecture en cours à 23h45 : <strong className="text-white font-serif italic text-xs">Haunting Adeline (Tome 2)</strong> — 4 cafés au compteur
+          <EditableText
+            id="navbar.banner_prefix"
+            defaultText="Lecture en cours à 23h45 :"
+          />{" "}
+          <EditableText
+            id="navbar.banner_book"
+            defaultText="Haunting Adeline (Tome 2)"
+            as="strong"
+            className="text-white font-serif italic text-xs"
+          />{" "}
+          —{" "}
+          <EditableText
+            id="navbar.banner_coffee"
+            defaultText="4 cafés au compteur"
+          />
           <Coffee className="h-3 w-3 text-amber-500 ml-1" />
         </span>
       </div>
@@ -45,11 +66,18 @@ export function Navbar() {
           <div>
             <span className="flex items-center gap-1.5 font-serif text-2xl font-bold tracking-tight text-stone-100 sm:text-3xl">
               <Heart className="heart-beat h-6 w-6 fill-rose-600 text-rose-500 drop-shadow-[0_0_12px_rgba(244,63,94,0.75)] sm:h-7 sm:w-7" />
-              <span className="italic font-light text-amber-400">&</span>
-              <span>Lit</span>
+              <EditableText
+                id="brand.amp"
+                defaultText="&"
+                className="italic font-light text-amber-400"
+              />
+              <EditableText id="brand.name" defaultText="Lit" />
             </span>
             <p className="text-[10px] uppercase tracking-[0.3em] text-amber-500/80">
-              Boudoir Littéraire & Vie de Maman
+              <EditableText
+                id="brand.subtitle"
+                defaultText="Boudoir Littéraire & Vie de Maman"
+              />
             </p>
           </div>
         </Link>
@@ -78,7 +106,9 @@ export function Navbar() {
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{link.label}</span>
+                <span className="relative z-10">
+                  <EditableText id={link.id} defaultText={link.label} />
+                </span>
               </Link>
             );
           })}
@@ -91,7 +121,7 @@ export function Navbar() {
           >
             <span className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/20 to-amber-400/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             <Flame className="h-4 w-4 text-amber-400 animate-pulse" />
-            Pépites 5/5
+            <EditableText id="navbar.cta_button" defaultText="Pépites 5/5" />
           </Link>
         </div>
 
@@ -132,7 +162,7 @@ export function Navbar() {
                         : "text-stone-400 hover:bg-stone-900"
                     }`}
                   >
-                    {link.label}
+                    <EditableText id={link.id} defaultText={link.label} />
                   </Link>
                 );
               })}

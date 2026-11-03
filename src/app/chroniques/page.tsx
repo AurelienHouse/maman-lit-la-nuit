@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { BOOK_REVIEWS } from "@/data/books";
 import { BookCard } from "@/components/BookCard";
 import { Flame, Search, Sparkles, Filter, Heart } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAdmin } from "@/context/AdminContext";
+import { EditableText } from "@/components/EditableText";
 
 const CATEGORIES = [
   "Tous",
@@ -16,13 +17,14 @@ const CATEGORIES = [
 ] as const;
 
 export default function ChroniquesPage() {
+  const { books } = useAdmin();
   const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
   const [minSpicy, setMinSpicy] = useState<number>(0);
   const [onlyFavorites, setOnlyFavorites] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const filteredBooks = useMemo(() => {
-    return BOOK_REVIEWS.filter((book) => {
+    return books.filter((book) => {
       if (selectedCategory !== "Tous" && book.category !== selectedCategory) {
         return false;
       }
@@ -41,7 +43,7 @@ export default function ChroniquesPage() {
       }
       return true;
     });
-  }, [selectedCategory, minSpicy, onlyFavorites, searchQuery]);
+  }, [books, selectedCategory, minSpicy, onlyFavorites, searchQuery]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 space-y-12">
@@ -54,13 +56,30 @@ export default function ChroniquesPage() {
       >
         <div className="absolute top-0 right-0 w-96 h-96 bg-rose-900/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
         <span className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300 relative z-10">
-          <Sparkles className="h-3.5 w-3.5" /> Bibliothèque & Avis
+          <Sparkles className="h-3.5 w-3.5" />{" "}
+          <EditableText
+            id="chroniques.kicker"
+            defaultText="Bibliothèque & Avis"
+          />
         </span>
         <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white relative z-10 leading-tight">
-          Toutes mes <span className="italic text-rose-400 font-light">Chroniques</span>
+          <EditableText
+            id="chroniques.title_1"
+            defaultText="Toutes mes"
+          />{" "}
+          <span className="italic text-rose-400 font-light">
+            <EditableText
+              id="chroniques.title_2"
+              defaultText="Chroniques"
+            />
+          </span>
         </h1>
         <p className="max-w-2xl text-sm sm:text-base text-stone-300 font-light leading-relaxed relative z-10">
-          Retrouvez ici tous les romans que j'ai dévorés entre deux biberons, les sorties d'école et mes insomnies volontaires. Filtrez par genre, par trope ou par niveau de piment pour trouver votre prochaine lecture !
+          <EditableText
+            id="chroniques.subtitle"
+            defaultText="Retrouvez ici tous les romans que j'ai dévorés entre deux biberons, les sorties d'école et mes insomnies volontaires. Filtrez par genre, par trope ou par niveau de piment pour trouver votre prochaine lecture !"
+            multiline
+          />
         </p>
       </motion.div>
 
@@ -149,7 +168,7 @@ export default function ChroniquesPage() {
           className="rounded-[2rem] border border-stone-800 bg-[#1c1917]/40 p-16 text-center space-y-6"
         >
           <p className="font-serif text-2xl text-white italic">
-            Aucun roman ne correspond à ces filtres dans mon boudoir... pour l'instant !
+            Aucun roman ne correspond à ces filtres dans mon boudoir... pour l&apos;instant !
           </p>
           <button
             type="button"

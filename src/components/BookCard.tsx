@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Flame, Skull, Star, MessageCircle, Clock, Heart } from "lucide-react";
 import { BookReview } from "@/data/books";
 import { motion } from "framer-motion";
+import { EditableText } from "@/components/EditableText";
 
 export function BookCard({ book }: { book: BookReview }) {
   return (
@@ -11,7 +12,7 @@ export function BookCard({ book }: { book: BookReview }) {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-stone-800/80 bg-[#1c1917]/60 transition-all duration-500 hover:-translate-y-2 hover:border-rose-800/60 hover:shadow-2xl hover:shadow-rose-950/50 backdrop-blur-sm"
     >
       {/* Couverture stylisée du livre + Badges */}
@@ -24,7 +25,10 @@ export function BookCard({ book }: { book: BookReview }) {
         {/* Top badges */}
         <div className="relative z-10 flex items-center justify-between gap-2">
           <span className="rounded-full bg-[#0c0a09]/80 backdrop-blur-md px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-rose-300 border border-rose-500/30">
-            {book.category}
+            <EditableText
+              id={`book.${book.slug}.category`}
+              defaultText={book.category}
+            />
           </span>
           {book.isFavorite && (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-700 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white shadow-lg shadow-rose-950/80 border border-rose-400/50">
@@ -38,13 +42,25 @@ export function BookCard({ book }: { book: BookReview }) {
           <div className="border-l-2 border-rose-500/60 pl-4 py-1">
             {book.series && (
               <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400">
-                {book.series}
+                <EditableText
+                  id={`book.${book.slug}.series`}
+                  defaultText={book.series}
+                />
               </p>
             )}
             <h3 className="font-serif text-2xl font-bold text-white group-hover:text-amber-200 transition-colors leading-tight mt-1">
-              {book.title}
+              <EditableText
+                id={`book.${book.slug}.title`}
+                defaultText={book.title}
+              />
             </h3>
-            <p className="text-sm font-medium text-rose-300/90 italic font-serif mt-1">de {book.author}</p>
+            <p className="text-sm font-medium text-rose-300/90 italic font-serif mt-1">
+              de{" "}
+              <EditableText
+                id={`book.${book.slug}.author`}
+                defaultText={book.author}
+              />
+            </p>
           </div>
         </div>
 
@@ -93,24 +109,34 @@ export function BookCard({ book }: { book: BookReview }) {
           <div className="rounded-2xl bg-[#0c0a09]/80 border border-stone-800/80 p-4 text-xs text-stone-300 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-amber-500/50" />
             <span className="font-serif font-bold text-amber-400 flex items-center gap-2 mb-1.5 uppercase tracking-wider text-[10px]">
-              <Clock className="h-3.5 w-3.5" /> Journal de bord d'une maman :
+              <Clock className="h-3.5 w-3.5" /> Journal de bord d&apos;une maman :
             </span>
-            <p className="italic text-stone-400 line-clamp-2 font-light leading-relaxed">{book.readingContext}</p>
+            <p className="italic text-stone-400 font-light leading-relaxed">
+              <EditableText
+                id={`book.${book.slug}.readingContext`}
+                defaultText={book.readingContext}
+                multiline
+              />
+            </p>
           </div>
 
           {/* Verdict court */}
-          <p className="text-sm leading-relaxed text-stone-300 font-light line-clamp-3">
-            {book.verdictCourt}
+          <p className="text-sm leading-relaxed text-stone-300 font-light">
+            <EditableText
+              id={`book.${book.slug}.verdictCourt`}
+              defaultText={book.verdictCourt}
+              multiline
+            />
           </p>
 
           {/* Tropes */}
           <div className="flex flex-wrap gap-2 pt-1">
-            {book.tropes.slice(0, 3).map((trope) => (
+            {book.tropes.slice(0, 3).map((trope, i) => (
               <span
                 key={trope}
                 className="rounded-lg bg-rose-950/30 border border-rose-900/30 px-3 py-1 text-[10px] uppercase tracking-wider text-rose-300/80"
               >
-                #{trope}
+                #<EditableText id={`book.${book.slug}.trope.${i}`} defaultText={trope} />
               </span>
             ))}
           </div>
